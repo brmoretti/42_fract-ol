@@ -11,7 +11,8 @@ INCLUDE_DIR			=	include
 INCLUDE_FILES		=	fractol.h
 INCLUDES			=	$(addprefix $(INCLUDE_DIR)/, $(INCLUDE_FILES))
 BUILD_DIR			=	build
-SRC_FILES			=	main.c			\
+SRC_FILES			=	draw_fractal.c	\
+						main.c			\
 						mandelbrot.c	\
 						rgba.c
 SRCS				=	$(addprefix $(SRC_DIR)/, SRC_FILES)
@@ -59,7 +60,7 @@ $(BUILD_DIR):
 	@ mkdir $(BUILD_DIR)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
-	@ printf "$(MAGENTA)$< $(BLUE)->$(GREEN) $@$(DEFAULT)"
+	@ printf "$(MAGENTA)$< $(BLUE)->$(GREEN) $@$(DEFAULT)\n"
 	@ $(CC) -c $< -I./$(INCLUDE_DIR) $(MLX42_CC) -o $@ -g
 
 clean: clean_MLX
