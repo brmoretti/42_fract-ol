@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 12:20:21 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/23 12:59:59 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:06:02 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void ft_hook(void* param)
 {
 	const mlx_t* mlx = param;
 
-	//printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
+	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
 }
 
 int	main(void)
@@ -56,8 +56,8 @@ int	main(void)
 	img_p.x_displacement_perc = 0.75;
 	img_p.y_displacement_perc = 0.5;
 	draw_fractal(img, &img_p);
-	//mlx_loop_hook(mlx, ft_hook, mlx);
-	//mlx_loop(mlx);
+	mlx_loop_hook(mlx, ft_hook, mlx);
+	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
 	return (0);

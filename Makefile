@@ -61,7 +61,7 @@ $(BUILD_DIR):
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@ printf "$(MAGENTA)$< $(BLUE)->$(GREEN) $@$(DEFAULT)\n"
-	@ $(CC) -c $< -I./$(INCLUDE_DIR) $(MLX42_CC) -o $@ -g
+	@ $(CC) -c $< -I./$(INCLUDE_DIR) -I./$(MLX42_INCLUDE_DIR) -o $@ -g
 
 clean: clean_MLX
 	@ rm -rf $(BUILD_DIR)
