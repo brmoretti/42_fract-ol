@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:31:08 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/23 12:46:12 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/24 11:17:11 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 static double	ft_x_value(const mlx_image_t *img,
 						const t_img_params *img_p, int x_coord)
 {
-	return ((((double)x_coord / img->height) * img_p->x_spam)
-		- (img_p->x_spam * img_p->x_displacement_perc));
+	return ((((double)x_coord / img->width) * img_p->x_spam)
+		- (img_p->x_spam * img_p->x_offset));
 }
 
 static double	ft_y_value(const mlx_image_t *img,
 						const t_img_params *img_p, int y_coord)
 {
-	return (-((((double)y_coord / img->width) * img_p->y_spam)
-			- (img_p->y_spam * img_p->y_displacement_perc)));
+	return (-((((double)y_coord / img->height) * img_p->y_spam)
+			- (img_p->y_spam * img_p->y_offset)));
 }
 
 void	draw_fractal(mlx_image_t *img, t_img_params *img_p)

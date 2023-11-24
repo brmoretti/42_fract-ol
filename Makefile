@@ -12,6 +12,8 @@ INCLUDE_FILES		=	fractol.h
 INCLUDES			=	$(addprefix $(INCLUDE_DIR)/, $(INCLUDE_FILES))
 BUILD_DIR			=	build
 SRC_FILES			=	draw_fractal.c	\
+						err.c			\
+						init.c			\
 						main.c			\
 						mandelbrot.c	\
 						rgba.c
@@ -56,6 +58,12 @@ bonus: $(NAME)
 $(NAME): $(MLX42_LIB) $(BUILD_DIR) $(BUILDS) $(INCLUDES)
 	@ $(CC) -o $(NAME) $(BUILDS) -I./$(INCLUDE_DIR) $(MLX42_CC) -g
 
+run: $(NAME)
+	@ ./fractol
+
+runv: $(NAME)
+	@ valgrind --suppressions=fractol.sup --leak-check=full --show-leak-kinds=all ./fractol
+
 $(BUILD_DIR):
 	@ mkdir $(BUILD_DIR)
 
@@ -76,20 +84,21 @@ test_MLX: $(MLX42_LIB)
 	$(CC) -o $@ $@.c $(MLX42_CC)
 
 $(MLX42_LIB): $(MLX42_DIR)
-	cd $(MLX42_DIR) && cmake -B build && \
-	cmake --build build -j4
+	@ cd $(MLX42_DIR) && \
+	  cmake -B build && \
+	  cmake --build build -j4
 
 $(MLX42_DIR):
 	git clone $(MLX42_REPO) $(MLX42_DIR)
 
 clean_MLX:
-	@if [ -d $(MLX42_BUILD_DIR) ]; then \
-		find $(MLX42_BUILD_DIR) -mindepth 1 ! \
-		-name '$(MLX42_LIB_NAME)' -exec rm -rf {} +; \
-	fi
+	@ if [ -d $(MLX42_BUILD_DIR) ]; then				\
+		find $(MLX42_BUILD_DIR) -mindepth 1 !			\
+		-name '$(MLX42_LIB_NAME)' -exec rm -rf {} +;	\
+	  fi
 
 fclean_MLX:
-	rm -rf $(MLX42_BUILD_DIR)
+	@ rm -rf $(MLX42_BUILD_DIR)
 
 clear_MLX:
-	rm -rf $(MLX42_DIR)
+	@ rm -rf $(MLX42_DIR)
