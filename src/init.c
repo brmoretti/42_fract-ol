@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 07:40:29 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/24 13:13:29 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/24 23:02:54 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	init_mandelbrot(t_img_params *img_p)
 {
 	img_p->fractal_function = mandelbrot;
 	img_p->x_spam = img_p->y_spam = 3;
-	img_p->x_offset = 0.75;
-	img_p->y_offset = 0.5;
+	img_p->x_offset = 2.3;
+	img_p->y_offset = 1.5;
 }
 
 void	init(t_items *items)
@@ -34,6 +34,7 @@ void	init(t_items *items)
 	if (!img_p)
 		return (errors(3));
 	init_mandelbrot(img_p);
+	img_p->zoom = 1.0;
 	items->mlx = mlx;
 	items->img = img;
 	items->img_params = img_p;
