@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 12:17:28 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/24 17:43:24 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:51:10 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,36 @@
 
 # define WIDTH 300
 # define HEIGHT 300
-# define ITERS 255
+# define ITERS 200
 
-typedef struct s_img_params
+typedef struct s_fractol
 {
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	int32_t			x_mouse;
+	int32_t			y_mouse;
 	double			x_spam;
 	double			y_spam;
 	double			x_offset;
 	double			y_offset;
 	double			zoom;
 	unsigned int	(*fractal_function)(double, double);
-} t_img_params;
-
-typedef struct s_items
-{
-	mlx_t			*mlx;
-	mlx_image_t		*img;
-	t_img_params	*img_params;
-	int32_t			x_mouse;
-	int32_t			y_mouse;
-}	t_items;
+}	t_fractol;
 
 uint32_t		color_rgba(int r, int g, int b, int a);
 
 unsigned int	mandelbrot(double c_r, double c_i);
-void			draw_fractal(mlx_image_t *img, t_img_params *img_p);
+unsigned int	julia(double c_r, double c_i);
+
+void			closehook(void *param);
+void			keyhook(mlx_key_data_t keydata, void *param);
+void			scrollhook(double xdelta, double ydelta, void *param);
+
+void			draw_fractal(t_fractol	*f);
+void			quit(mlx_t	*mlx);
 void			errors(unsigned int err_number);
-void			init(t_items *items);
+void			init(t_fractol *f);
+void			zoom_in(t_fractol *f);
+void			zoom_out(t_fractol *f);
 
 #endif

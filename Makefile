@@ -13,9 +13,12 @@ INCLUDES			=	$(addprefix $(INCLUDE_DIR)/, $(INCLUDE_FILES))
 BUILD_DIR			=	build
 SRC_FILES			=	draw_fractal.c	\
 						err.c			\
+						hooks.c			\
 						init.c			\
+						julia.c			\
 						main.c			\
 						mandelbrot.c	\
+						misc.c			\
 						rgba.c
 SRCS				=	$(addprefix $(SRC_DIR)/, SRC_FILES)
 OBJS				=	$(SRC_FILES:.c=.o)
@@ -62,7 +65,7 @@ run: $(NAME)
 	@ ./fractol
 
 runv: $(NAME)
-	@ valgrind --suppressions=fractol.sup --leak-check=full --show-leak-kinds=all ./fractol
+	@ valgrind --suppressions=fractol.supp --leak-check=full --show-leak-kinds=all ./fractol
 
 $(BUILD_DIR):
 	@ mkdir $(BUILD_DIR)

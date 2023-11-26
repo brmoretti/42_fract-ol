@@ -6,31 +6,25 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:31:08 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/24 23:32:03 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:03:14 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static double	ft_x_value(const mlx_image_t *img,
-						const t_img_params *img_p, int x_coord)
+static double	ft_x_value(const t_fractol *f, int x_coord)
 {
-	// return ((((double)x_coord / img->width) * img_p->x_spam)
-	// 	- (img_p->x_spam * img_p->x_offset));
-	return ((((double)x_coord / img->width) * img_p->x_spam)
-		- img_p->x_offset);
+	return ((((double)x_coord / f->img->width) * f->x_spam)
+		- f->x_offset);
 }
 
-static double	ft_y_value(const mlx_image_t *img,
-						const t_img_params *img_p, int y_coord)
+static double	ft_y_value(const t_fractol *f, int y_coord)
 {
-	// return (-((((double)y_coord / img->height) * img_p->y_spam)
-	// 		- (img_p->y_spam * img_p->y_offset)));
-	return (-((((double)y_coord / img->height) * img_p->y_spam)
-			- img_p->y_offset));
+	return (-((((double)y_coord / f->img->height) * f->y_spam)
+			- f->y_offset));
 }
 
-void	draw_fractal(mlx_image_t *img, t_img_params *img_p)
+void	draw_fractal(t_fractol	*f)
 {
 	int				i;
 	int				j;
@@ -39,15 +33,15 @@ void	draw_fractal(mlx_image_t *img, t_img_params *img_p)
 	unsigned int	z;
 
 	i = -1;
-	while (++i < img->width)
+	while (++i < f->img->width)
 	{
 		j = -1;
-		while (++j < img->height)
+		while (++j < f->img->height)
 		{
-			x = ft_x_value(img, img_p, i);
-			y = ft_y_value(img, img_p, j);
-			z = img_p->fractal_function(x, y);
-			mlx_put_pixel(img, i, j, color_rgba(255 - z, 255 - z, 255 - z, 255));
+			x = ft_x_value(f, i);
+			y = ft_y_value(f, j);
+			z = f->fractal_function(x, y);
+			mlx_put_pixel(f->img, i, j, color_rgba((z * z % 255), (2 * z) % 255, z % 255, 255));
 		}
 	}
 }

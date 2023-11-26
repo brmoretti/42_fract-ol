@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   misc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/19 14:16:42 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/26 15:43:18 by bmoretti         ###   ########.fr       */
+/*   Created: 2023/11/26 15:40:09 by bmoretti          #+#    #+#             */
+/*   Updated: 2023/11/26 16:46:40 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-unsigned int	mandelbrot(double c_r, double c_i)
+void	quit(mlx_t	*mlx)
 {
-	unsigned int	n;
-	double			z_r;
-	double			z_i;
-	double			tmp;
+	mlx_close_window(mlx);
+	mlx_terminate(mlx);
+	exit (EXIT_SUCCESS);
+}
 
-	z_r = 0;
-	z_i = 0;
-	n = -1;
-	while (++n < ITERS)
-	{
-		if ((z_r * z_r + z_i * z_i) > 4.0)
-			break ;
-		tmp = 2 * z_r * z_i + c_i;
-		z_r = z_r * z_r - z_i * z_i + c_r;
-		z_i = tmp;
-	}
-	return (n);
+void	zoom_in(t_fractol *f)
+{
+	f->x_spam *= 0.99;
+	f->y_spam *= 0.99;
+	f->zoom /= 0.99;
+	f->x_offset *= 1;
+	f->y_offset	*= 1;
+}
+
+void	zoom_out(t_fractol *f)
+{
+	f->x_spam *= 1.01;
+	f->y_spam *= 1.01;
+	f->zoom /= 1.01;
+	f->x_offset *= 1.01;
+	f->y_offset	*= 1.01;
 }
