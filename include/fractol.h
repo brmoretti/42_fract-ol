@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 12:17:28 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/26 15:51:10 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:10:35 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,19 @@ typedef struct s_fractol
 	double			y_spam;
 	double			x_offset;
 	double			y_offset;
+	double			x_seed;
+	double			y_seed;
 	double			zoom;
-	unsigned int	(*fractal_function)(double, double);
+	double			iters;
+	double			color_factor;
+	unsigned int	(*fractal_function)(double, double, void*);
 }	t_fractol;
 
 uint32_t		color_rgba(int r, int g, int b, int a);
+double			color_factor(t_fractol *f);
 
-unsigned int	mandelbrot(double c_r, double c_i);
-unsigned int	julia(double c_r, double c_i);
+unsigned int	mandelbrot(double c_r, double c_i, void *vars);
+unsigned int	julia(double c_r, double c_i, void *vars);
 
 void			closehook(void *param);
 void			keyhook(mlx_key_data_t keydata, void *param);
@@ -53,5 +58,7 @@ void			errors(unsigned int err_number);
 void			init(t_fractol *f);
 void			zoom_in(t_fractol *f);
 void			zoom_out(t_fractol *f);
+void			increase_resolution(t_fractol *f);
+void			decrease_resolution(t_fractol *f);
 
 #endif

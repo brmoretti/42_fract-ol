@@ -6,13 +6,13 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 12:20:21 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/26 15:42:37 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/26 23:33:16 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static void ft_hook(void* param)
+static void	ft_hook(void *param)
 {
 	t_fractol	*f;
 

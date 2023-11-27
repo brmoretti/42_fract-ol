@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 15:24:34 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/26 16:36:44 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:36:27 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,17 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
 		f->x_offset -= 0.05 * f->x_spam;
 	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
-		f->y_offset += 0.05 * f->y_spam;;
+		f->y_offset += 0.05 * f->y_spam;
 	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
 		f->y_offset -= 0.05 * f->y_spam;
-	if (keydata.key == MLX_KEY_EQUAL && keydata.action == MLX_PRESS && keydata.modifier == MLX_CONTROL)
+	if (keydata.key == MLX_KEY_EQUAL && keydata.action == MLX_PRESS)
 		zoom_in(f);
+	if (keydata.key == MLX_KEY_MINUS && keydata.action == MLX_PRESS)
+		zoom_out(f);
+	if (keydata.key == MLX_KEY_Z && keydata.action == MLX_PRESS)
+		increase_resolution(f);
+	if (keydata.key == MLX_KEY_X && keydata.action == MLX_PRESS)
+		decrease_resolution(f);
 }
 
 void	scrollhook(double xdelta, double ydelta, void *param)
@@ -52,14 +58,13 @@ void	scrollhook(double xdelta, double ydelta, void *param)
 	if (ydelta > 0)
 	{
 		zoom_in(f);
-		f->x_offset -= x_ratio / f->x_spam * 0.1;
-		f->y_offset -= y_ratio / f->x_spam * 0.1;
+		f->x_offset -= x_ratio * f->x_spam * 0.05;
+		f->y_offset -= y_ratio * f->x_spam * 0.05;
 	}
 	else if (ydelta < 0)
 	{
 		zoom_out(f);
-		f->x_offset += x_ratio * 0.15 / f->zoom;
-		f->y_offset += y_ratio * 0.15 / f->zoom;
+		f->x_offset += x_ratio * f->x_spam * 0.05;
+		f->y_offset += y_ratio * f->x_spam * 0.05;
 	}
 }
-
