@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 12:20:21 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/28 10:57:05 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:55:47 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@ static void	ft_hook(void *param)
 	t_fractol	*f;
 
 	f = param;
-	// if (f->img)
-	// 	mlx_delete_image(f->mlx, f->img);
-	// if (!f->img)
-	// 	f->img = mlx_new_image(f->mlx, f->mlx->width, f->mlx->height);
-	// if (!f->img || mlx_image_to_window(f->mlx, f->img, 0, 0) < 0)
-	// 	errors (f, MLX_IMAGE_FAILURE);
 	draw_fractal(f);
 }
 
