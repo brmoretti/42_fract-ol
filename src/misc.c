@@ -6,17 +6,22 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 15:40:09 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/27 14:04:57 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:59:24 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	quit(mlx_t	*mlx)
+void	quit(t_fractol *f, int exit_type)
 {
-	mlx_close_window(mlx);
-	mlx_terminate(mlx);
-	exit (EXIT_SUCCESS);
+	if (f->img)
+		mlx_delete_image(f->mlx, f->img);
+	if (f->mlx)
+	{
+		mlx_close_window(f->mlx);
+		mlx_terminate(f->mlx);
+	}
+	exit (exit_type);
 }
 
 void	zoom_in(t_fractol *f)

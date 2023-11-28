@@ -13,6 +13,7 @@ INCLUDES			=	$(addprefix $(INCLUDE_DIR)/, $(INCLUDE_FILES))
 BUILD_DIR			=	build
 SRC_FILES			=	draw_fractal.c	\
 						err.c			\
+						ft_atof.c		\
 						hooks.c			\
 						init.c			\
 						julia.c			\
@@ -23,6 +24,18 @@ SRC_FILES			=	draw_fractal.c	\
 SRCS				=	$(addprefix $(SRC_DIR)/, SRC_FILES)
 OBJS				=	$(SRC_FILES:.c=.o)
 BUILDS				=	$(addprefix $(BUILD_DIR)/, $(OBJS))
+
+#≻───░⋆ ✪ LIBFT ✪ ⋆░─────────────────────────────────────────────────────────≺#
+
+LIBFT_REPO			=	https://github.com/brmoretti/42_libft.git
+LIBFT_LIB_NAME		=	libft.a
+LIBFT_DIR			=	libft
+LIBFT_INCLUDE_DIR	=	$(LIBFT_DIR)/include
+LIBFT_LIB			=	$(LIBFT_DIR)/$(LIBFT_LIB_NAME)
+LIBFT_LIBS			=	-lft
+LIBFT_CC			=	-I./$(LIBFT_INCLUDE_DIR)	\
+						-L./$(LIBFT_DIR)			\
+						$(LIBFT_LIBS)
 
 #≻───░⋆ ✪ MLX42 ✪ ⋆░─────────────────────────────────────────────────────────≺#
 
@@ -58,41 +71,53 @@ all: $(NAME)
 
 bonus: $(NAME)
 
-$(NAME): $(MLX42_LIB) $(BUILD_DIR) $(BUILDS) $(INCLUDES)
-	@ $(CC) -o $(NAME) $(BUILDS) -I./$(INCLUDE_DIR) $(MLX42_CC) -g
+$(NAME): $(MLX42_LIB) $(LIBFT_LIB) $(BUILD_DIR) $(BUILDS) $(INCLUDES)
+	@ $(CC) -o $(NAME) $(BUILDS) -I./$(INCLUDE_DIR) $(MLX42_CC) $(LIBFT_CC) -g
 
 run: $(NAME)
-	@ ./fractol
+	@ ./fractol julia
 
 runv: $(NAME)
-	@ valgrind --suppressions=fractol.supp --leak-check=full --show-leak-kinds=all ./fractol
+	@ valgrind --suppressions=fractol.supp --leak-check=full --show-leak-kinds=all ./fractol julia
 
 $(BUILD_DIR):
 	@ mkdir $(BUILD_DIR)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@ printf "$(MAGENTA)$< $(BLUE)->$(GREEN) $@$(DEFAULT)\n"
-	@ $(CC) -c $< -I./$(INCLUDE_DIR) -I./$(MLX42_INCLUDE_DIR) -o $@ -g
+	@ $(CC) -c $<				\
+	  -I./$(INCLUDE_DIR)		\
+	  -I./$(MLX42_INCLUDE_DIR)	\
+	  -I./$(LIBFT_INCLUDE_DIR)	\
+	  -o $@ -g
 
-clean: clean_MLX
+clean: clean_MLX clean_libft
 	@ rm -rf $(BUILD_DIR)
 
-fclean: fclean_MLX clean
+fclean: fclean_MLX fclean_libft clean
 	@ rm -rf $(NAME)
 
-test_MLX: $(MLX42_LIB)
-	$(CC) -o test_MLX test_MLX.c $(MLX42_CC)
+re: fclean make
 
-%_test: $(MLX42_LIB)
-	$(CC) -o $@ $@.c $(MLX42_CC)
+$(LIBFT_LIB): $(LIBFT_DIR)
+	@ make -s -C $(LIBFT_DIR)
 
 $(MLX42_LIB): $(MLX42_DIR)
-	@ cd $(MLX42_DIR) && \
-	  cmake -B build && \
+	@ cd $(MLX42_DIR) &&		\
+	  cmake -B build &&			\
 	  cmake --build build -j4
+
+$(LIBFT_DIR):
+	git clone $(LIBFT_REPO) $(LIBFT_DIR)
 
 $(MLX42_DIR):
 	git clone $(MLX42_REPO) $(MLX42_DIR)
+
+clean_libft:
+	@ make -s -C $(LIBFT_DIR) clean
+
+fclean_libft:
+	@ make -s -C $(LIBFT_DIR) fclean
 
 clean_MLX:
 	@ if [ -d $(MLX42_BUILD_DIR) ]; then				\

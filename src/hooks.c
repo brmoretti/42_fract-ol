@@ -6,27 +6,24 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 15:24:34 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/27 14:36:27 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/28 10:46:07 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	closehook(void *param)
+void	close_hook(void *param)
 {
-	t_fractol	*f;
-
-	f = param;
-	quit(f->mlx);
+	quit ((t_fractol *)param, EXIT_SUCCESS);
 }
 
-void	keyhook(mlx_key_data_t keydata, void *param)
+void	key_hook(mlx_key_data_t keydata, void *param)
 {
 	t_fractol	*f;
 
 	f = param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		quit(f->mlx);
+		quit(f, EXIT_SUCCESS);
 	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
 		f->x_offset += 0.05 * f->x_spam;
 	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
@@ -45,16 +42,19 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 		decrease_resolution(f);
 }
 
-void	scrollhook(double xdelta, double ydelta, void *param)
+void	scroll_hook(double xdelta, double ydelta, void *param)
 {
 	t_fractol	*f;
 	double		x_ratio;
 	double		y_ratio;
 
-	f = param;
-	mlx_get_mouse_pos(f->mlx, &(f->x_mouse), &(f->y_mouse));
-	x_ratio = (((double)f->x_mouse / f->img->width) - 0.5) * 2;
-	y_ratio = (((double)f->y_mouse / f->img->height) - 0.5) * 2;
+	if (ydelta != 0)
+	{
+		f = param;
+		mlx_get_mouse_pos(f->mlx, &(f->x_mouse), &(f->y_mouse));
+		x_ratio = (((double)f->x_mouse / f->img->width) - 0.5) * 2;
+		y_ratio = (((double)f->y_mouse / f->img->height) - 0.5) * 2;
+	}
 	if (ydelta > 0)
 	{
 		zoom_in(f);
@@ -67,4 +67,37 @@ void	scrollhook(double xdelta, double ydelta, void *param)
 		f->x_offset += x_ratio * f->x_spam * 0.05;
 		f->y_offset += y_ratio * f->x_spam * 0.05;
 	}
+}
+
+void	mouse_hook(mouse_key_t button, action_t action,
+		modifier_key_t mods, void *param)
+{
+	t_fractol	*f;
+	double		x_ratio;
+	double		y_ratio;
+
+	f = param;
+	if (button == MLX_MOUSE_BUTTON_LEFT
+		&& (action == MLX_PRESS || action == MLX_REPEAT)
+		&& f->set == JULIA && f->zoom == 1.0
+		&& f->x_offset == 1.6 && f->y_offset == 1.6)
+	{
+		mlx_get_mouse_pos(f->mlx, &(f->x_mouse), &(f->y_mouse));
+		x_ratio = (((double)f->x_mouse / f->img->width) - 0.5) * 2;
+		y_ratio = (((double)f->y_mouse / f->img->height) - 0.5) * 2;
+		f->x_seed = x_ratio * f->x_spam / 2;
+		f->y_seed = -y_ratio * f->y_spam / 2;
+	}
+}
+
+void	resize_hook(int32_t width, int32_t height, void *param)
+{
+	t_fractol	*f;
+
+	f = param;
+	if (f->img)
+		mlx_delete_image(f->mlx, f->img);
+	f->img = mlx_new_image(f->mlx, f->mlx->width, f->mlx->height);
+	if (!f->img || mlx_image_to_window(f->mlx, f->img, 0, 0) < 0)
+		errors (f, MLX_IMAGE_FAILURE);
 }
