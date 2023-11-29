@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:31:08 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/27 14:59:10 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/29 15:00:59 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	draw_fractal(t_fractol	*f)
 	int				j;
 	double			x;
 	double			y;
-	unsigned int	z;
+	double			z;
 
 	i = -1;
 	while (++i < f->img->width)
@@ -41,7 +41,7 @@ void	draw_fractal(t_fractol	*f)
 			x = ft_x_value(f, i);
 			y = ft_y_value(f, j);
 			z = f->fractal_function(x, y, f) * f->color_factor;
-			mlx_put_pixel(f->img, i, j, color_rgba(z, z, z, 255));
+			mlx_put_pixel(f->img, i, j, golden_ratio(z));
 		}
 	}
 }

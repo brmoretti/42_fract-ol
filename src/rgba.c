@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 16:24:06 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/27 14:23:55 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/29 15:56:07 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,17 @@ uint32_t	color_rgba(int r, int g, int b, int a)
 
 double	color_factor(t_fractol *f)
 {
-	return (254.0 / (f->iters + 1));
+	return (1 / (f->iters + 1));
+}
+
+double	golden_ratio(double nb)
+{
+	int	r;
+	int g;
+	int b;
+
+	r = 1.61803398875 * nb * 255;
+	g = nb * 255;
+	b = (r + g) % 255;
+	return (color_rgba(r, g, b, 255));
 }
