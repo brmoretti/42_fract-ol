@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 12:17:28 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/29 14:54:36 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:29:33 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void			zoom_out(t_fractol *f);
 void			increase_resolution(t_fractol *f);
 void			decrease_resolution(t_fractol *f);
 
+double			black_and_white(double nb);
 double			golden_ratio(double nb);
+double			crazy(double nb);
 
 #endif

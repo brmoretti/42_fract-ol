@@ -11,7 +11,8 @@ INCLUDE_DIR			=	include
 INCLUDE_FILES		=	fractol.h
 INCLUDES			=	$(addprefix $(INCLUDE_DIR)/, $(INCLUDE_FILES))
 BUILD_DIR			=	build
-SRC_FILES			=	draw_fractal.c	\
+SRC_FILES			=	colors.c		\
+						draw_fractal.c	\
 						err.c			\
 						ft_atof.c		\
 						hooks.c			\
