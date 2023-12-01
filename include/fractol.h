@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 12:17:28 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/29 19:29:33 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/12/01 02:44:37 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,32 @@
 # include "MLX42/MLX42.h"
 # include "libft.h"
 
-# define WIDTH 600
-# define HEIGHT 600
+# define WIDTH 200
+# define HEIGHT 200
 # define ITERS 200
 
 enum e_errors
 {
-	MISSING_ARGS,
-	TOO_MANY_ARGS,
-	REQ_NO_EXTRA_ARGS,
-	REQ_NO_OR_TWO_EXTRA_ARGS,
-	MLX_FAILURE,
-	MLX_IMAGE_FAILURE
+	missing_args,
+	too_many_args,
+	req_no_extra_args,
+	req_no_or_two_extra_args,
+	mlx_failure,
+	mlx_image_failure
 };
 
-enum	e_set
+enum	e_set //yet unused
 {
 	MANDELBROT,
 	JULIA
+};
+
+enum	e_color_scheme
+{
+	black_and_white,
+	golden_ratio,
+	crazy,
+	crazy_dynamic
 };
 
 typedef struct s_fractol
@@ -56,14 +64,14 @@ typedef struct s_fractol
 	double			zoom;
 	double			iters;
 	double			color_factor;
-	int				set;
+	int				color_scheme;
+	int				set; //unused
 	unsigned int	(*fractal_function)(double, double, void*);
 }	t_fractol;
 
 uint32_t		color_rgba(int r, int g, int b, int a);
 double			color_factor(t_fractol *f);
-
-double			ft_atof(const char *nptr);
+double			scheme_selector(double nb, int color_scheme);
 
 unsigned int	mandelbrot(double c_r, double c_i, void *vars);
 unsigned int	julia(double c_r, double c_i, void *vars);
@@ -84,8 +92,8 @@ void			zoom_out(t_fractol *f);
 void			increase_resolution(t_fractol *f);
 void			decrease_resolution(t_fractol *f);
 
-double			black_and_white(double nb);
-double			golden_ratio(double nb);
-double			crazy(double nb);
+double			black_and_white_scheme(double nb);
+double			golden_ratio_scheme(double nb);
+double			crazy_scheme(double nb);
 
 #endif

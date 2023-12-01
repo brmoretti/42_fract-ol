@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 15:40:09 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/29 19:37:05 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:04:41 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	zoom_in(t_fractol *f)
 	f->y_spam *= 0.99;
 	f->y_offset -= (prev_span - f->y_spam) / 2;
 	f->zoom /= 0.99;
-	printf("%f\n", f->mlx->delta_time);
 }
 
 void	zoom_out(t_fractol *f)

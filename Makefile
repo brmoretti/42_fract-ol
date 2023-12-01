@@ -14,7 +14,6 @@ BUILD_DIR			=	build
 SRC_FILES			=	colors.c		\
 						draw_fractal.c	\
 						err.c			\
-						ft_atof.c		\
 						hooks.c			\
 						init.c			\
 						julia.c			\
@@ -26,9 +25,8 @@ SRCS				=	$(addprefix $(SRC_DIR)/, SRC_FILES)
 OBJS				=	$(SRC_FILES:.c=.o)
 BUILDS				=	$(addprefix $(BUILD_DIR)/, $(OBJS))
 
-#≻───░⋆ ✪ LIBFT ✪ ⋆░─────────────────────────────────────────────────────────≺#
-
-LIBFT_REPO			=	https://github.com/brmoretti/42_libft.git
+#≻───░⋆ ✪ LIBFT EXTRA ✪ ⋆░───────────────────────────────────────────────────≺#
+LIBFT_REPO			=	https://github.com/brmoretti/42_libft_extra.git
 LIBFT_LIB_NAME		=	libft.a
 LIBFT_DIR			=	libft
 LIBFT_INCLUDE_DIR	=	$(LIBFT_DIR)/include
@@ -39,7 +37,6 @@ LIBFT_CC			=	-I./$(LIBFT_INCLUDE_DIR)	\
 						$(LIBFT_LIBS)
 
 #≻───░⋆ ✪ MLX42 ✪ ⋆░─────────────────────────────────────────────────────────≺#
-
 MLX42_REPO			=	https://github.com/codam-coding-college/MLX42.git
 MLX42_LIB_NAME		=	libmlx42.a
 MLX42_DIR			=	MLX42
@@ -65,7 +62,6 @@ GREEN				=	\033[0;32m
 DEFAULT 			=	\033[0:0m
 
 #≻───░⋆ ✪ RULES ✪ ⋆░─────────────────────────────────────────────────────────≺#
-
 .PHONY: all bonus clean fclean re
 
 all: $(NAME)

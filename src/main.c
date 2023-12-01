@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 12:20:21 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/28 11:55:47 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:47:41 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	main(int argc, char **argv)
 
 	init(&f, argc, argv);
 	mlx_close_hook(f.mlx, &close_hook, &f);
-	mlx_resize_hook(f.mlx, &resize_hook, &f);
 	mlx_key_hook(f.mlx, &key_hook, &f);
 	mlx_mouse_hook(f.mlx, &mouse_hook, &f);
 	mlx_scroll_hook(f.mlx, &scroll_hook, &f);
 	mlx_loop_hook(f.mlx, ft_hook, &f);
+	mlx_resize_hook(f.mlx, &resize_hook, &f);
 	mlx_loop(f.mlx);
 	mlx_terminate(f.mlx);
 	return (EXIT_SUCCESS);

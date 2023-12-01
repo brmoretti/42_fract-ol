@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 07:40:29 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/29 19:35:35 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/12/01 02:39:31 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	init_mandelbrot(t_fractol *f, int argc)
 {
 	if (argc > 2)
-		errors(f, REQ_NO_EXTRA_ARGS);
+		errors(f, req_no_extra_args);
 	f->set = MANDELBROT;
 	f->fractal_function = mandelbrot;
 	f->x_spam = 3;
@@ -27,7 +27,7 @@ static void	init_mandelbrot(t_fractol *f, int argc)
 static void	init_julia(t_fractol *f, int argc, char **argv)
 {
 	if (argc != 2 && argc != 4)
-		errors(f, REQ_NO_OR_TWO_EXTRA_ARGS);
+		errors(f, req_no_or_two_extra_args);
 	f->set = JULIA;
 	f->fractal_function = julia;
 	f->x_spam = 3.2;
@@ -36,13 +36,13 @@ static void	init_julia(t_fractol *f, int argc, char **argv)
 	f->y_offset = 1.6;
 	if (argc == 2)
 	{
-		f->x_seed = -0.291892;
-		f->y_seed = -0.016842;
+		f->x_seed = 0.291892;
+		f->y_seed = 0.016842;
 	}
 	else
 	{
 		f->x_seed = ft_atof(argv[2]);
-		f->x_seed = ft_atof(argv[3]);
+		f->y_seed = ft_atof(argv[3]);
 	}
 }
 
@@ -61,15 +61,16 @@ void	init(t_fractol *f, int argc, char **argv)
 	f->mlx = NULL;
 	f->img = NULL;
 	if (argc <= 1)
-		return (errors(f, MISSING_ARGS));
+		return (errors(f, missing_args));
 	which_fractal(f, argc, argv);
 	f->mlx = mlx_init(WIDTH, HEIGHT, "Fract-ol", true);
 	if (!f->mlx)
-		return (errors(f, MLX_FAILURE));
+		return (errors(f, mlx_failure));
 	f->img = mlx_new_image(f->mlx, f->mlx->width, f->mlx->height);
 	if (!f->img || mlx_image_to_window(f->mlx, f->img, 0, 0) < 0)
-		errors (f, MLX_IMAGE_FAILURE);
+		errors (f, mlx_image_failure);
 	f->zoom = 1.0;
 	f->iters = ITERS;
 	f->color_factor = color_factor(f);
+	f->color_scheme = black_and_white;
 }

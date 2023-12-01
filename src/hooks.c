@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 15:24:34 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/29 19:40:25 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/12/01 02:44:56 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,13 @@ void	mouse_hook(mouse_key_t button, action_t action,
 		f->x_seed = x_ratio * f->x_spam / 2;
 		f->y_seed = -y_ratio * f->y_spam / 2;
 	}
+	if (button == MLX_MOUSE_BUTTON_RIGHT && action == MLX_PRESS)
+	{
+		if (f->color_scheme == crazy_dynamic)
+			f->color_scheme = black_and_white;
+		else
+			f->color_scheme++;
+	}
 }
 
 void	resize_hook(int32_t width, int32_t height, void *param)
@@ -99,5 +106,5 @@ void	resize_hook(int32_t width, int32_t height, void *param)
 		mlx_delete_image(f->mlx, f->img);
 	f->img = mlx_new_image(f->mlx, f->mlx->width, f->mlx->height);
 	if (!f->img || mlx_image_to_window(f->mlx, f->img, 0, 0) < 0)
-		errors (f, MLX_IMAGE_FAILURE);
+		errors (f, mlx_image_failure);
 }

@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 16:24:06 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/29 19:30:43 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:11:31 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ uint32_t	color_rgba(int r, int g, int b, int a)
 
 double	color_factor(t_fractol *f)
 {
-	return (1 / (f->iters + 1));
+	return (1 / (f->iters));
 }
