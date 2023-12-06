@@ -109,8 +109,6 @@ $(LIBFT_DIR):
 
 $(MLX42_DIR):
 	@ git clone $(MLX42_REPO) $(MLX42_DIR)
-	@ cd $@ && 								\
-	  sed -i "s/(VERSION 3.18.0)/(VERSION 3.16.0)/" CMakeLists.txt
 
 clean_libft: $(LIBFT_DIR)
 	@ make -s -C $(LIBFT_DIR) clean
