@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 15:24:34 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/12/01 02:44:56 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/12/02 15:32:06 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	scroll_hook(double xdelta, double ydelta, void *param)
 	double		x_ratio;
 	double		y_ratio;
 
+	(void)xdelta;
 	if (ydelta != 0)
 	{
 		f = param;
@@ -76,10 +77,11 @@ void	mouse_hook(mouse_key_t button, action_t action,
 	double		x_ratio;
 	double		y_ratio;
 
+	(void)mods;
 	f = param;
 	if (button == MLX_MOUSE_BUTTON_LEFT
 		&& (action == MLX_PRESS || action == MLX_REPEAT)
-		&& f->set == JULIA && f->zoom == 1.0
+		&& f->fractal_function == julia && f->zoom == 1.0
 		&& f->x_offset == 1.6 && f->y_offset == 1.6)
 	{
 		mlx_get_mouse_pos(f->mlx, &(f->x_mouse), &(f->y_mouse));
@@ -95,16 +97,4 @@ void	mouse_hook(mouse_key_t button, action_t action,
 		else
 			f->color_scheme++;
 	}
-}
-
-void	resize_hook(int32_t width, int32_t height, void *param)
-{
-	t_fractol	*f;
-
-	f = param;
-	if (f->img)
-		mlx_delete_image(f->mlx, f->img);
-	f->img = mlx_new_image(f->mlx, f->mlx->width, f->mlx->height);
-	if (!f->img || mlx_image_to_window(f->mlx, f->img, 0, 0) < 0)
-		errors (f, mlx_image_failure);
 }

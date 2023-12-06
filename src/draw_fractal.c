@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:31:08 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/30 14:58:13 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/12/02 15:30:11 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static double	ft_y_value(const t_fractol *f, int y_coord)
 
 void	draw_fractal(t_fractol	*f)
 {
-	int				i;
-	int				j;
+	uint32_t		i;
+	uint32_t		j;
 	double			x;
 	double			y;
 	double			z;

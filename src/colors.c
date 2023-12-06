@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 19:15:36 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/12/01 03:44:19 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:17:35 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ double	black_and_white_scheme(double nb)
 {
 	nb = 1 - nb;
 	nb *= 255;
-	return(color_rgba(nb, nb, nb, 255));
+	return (color_rgba(nb, nb, nb, 255));
 }
 
 double	golden_ratio_scheme(double nb)
 {
 	int	r;
-	int g;
-	int b;
+	int	g;
+	int	b;
 
 	r = 1.61803398875 * nb * 255;
 	g = nb * 255;
@@ -34,8 +34,8 @@ double	golden_ratio_scheme(double nb)
 double	crazy_scheme(double nb)
 {
 	int	r;
-	int g;
-	int b;
+	int	g;
+	int	b;
 
 	nb = pow(nb + 10, 3) + pow(nb + 2, 2) + nb * 5;
 	r = (sin(nb) + 1) / 2 * 255;
@@ -47,8 +47,8 @@ double	crazy_scheme(double nb)
 double	crazy_dynamic_scheme(double nb)
 {
 	int		r;
-	int 	g;
-	int 	b;
+	int		g;
+	int		b;
 	double	time;
 
 	time = mlx_get_time();

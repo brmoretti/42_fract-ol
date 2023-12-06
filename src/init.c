@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 07:40:29 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/12/01 02:39:31 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/12/02 15:32:33 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	init_mandelbrot(t_fractol *f, int argc)
 {
 	if (argc > 2)
 		errors(f, req_no_extra_args);
-	f->set = MANDELBROT;
 	f->fractal_function = mandelbrot;
 	f->x_spam = 3;
 	f->y_spam = 3;
@@ -28,7 +27,6 @@ static void	init_julia(t_fractol *f, int argc, char **argv)
 {
 	if (argc != 2 && argc != 4)
 		errors(f, req_no_or_two_extra_args);
-	f->set = JULIA;
 	f->fractal_function = julia;
 	f->x_spam = 3.2;
 	f->y_spam = 3.2;
@@ -46,14 +44,27 @@ static void	init_julia(t_fractol *f, int argc, char **argv)
 	}
 }
 
+static void	init_burning_ship(t_fractol *f, int argc)
+{
+	if (argc > 2)
+		errors(f, req_no_extra_args);
+	f->fractal_function = burning_ship;
+	f->x_spam = 3;
+	f->y_spam = 3;
+	f->x_offset = 1.9;
+	f->y_offset = 2.2;
+}
+
 void	which_fractal(t_fractol *f, int argc, char **argv)
 {
-	int	fractal;
-
 	if (!ft_strncmp("mandelbrot", argv[1], ft_strlen("mandelbrot")))
 		init_mandelbrot(f, argc);
 	else if (!ft_strncmp("julia", argv[1], ft_strlen("julia")))
 		init_julia(f, argc, argv);
+	else if (!ft_strncmp("bship", argv[1], ft_strlen("bship")))
+		init_burning_ship(f, argc);
+	else
+		errors(f, invalid_args);
 }
 
 void	init(t_fractol *f, int argc, char **argv)
@@ -63,7 +74,7 @@ void	init(t_fractol *f, int argc, char **argv)
 	if (argc <= 1)
 		return (errors(f, missing_args));
 	which_fractal(f, argc, argv);
-	f->mlx = mlx_init(WIDTH, HEIGHT, "Fract-ol", true);
+	f->mlx = mlx_init(WIDTH, HEIGHT, "Fract-ol", false);
 	if (!f->mlx)
 		return (errors(f, mlx_failure));
 	f->img = mlx_new_image(f->mlx, f->mlx->width, f->mlx->height);

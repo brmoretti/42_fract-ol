@@ -6,7 +6,7 @@
 /*   By: bmoretti <bmoretti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 07:55:52 by bmoretti          #+#    #+#             */
-/*   Updated: 2023/11/30 14:47:14 by bmoretti         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:30:43 by bmoretti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,8 @@ void	errors(t_fractol *f, int error)
 		ft_putstr_fd("Fail to create MLX instance\n", 1);
 	else if (error == mlx_image_failure)
 		ft_putstr_fd("Fail to create and place the image.\n,", 1);
+	else if (error == invalid_args)
+		ft_putstr_fd("Invalid argument. "
+			"Valids: mandelbrot | julia | bship\n", 1);
 	quit (f, EXIT_FAILURE);
 }
