@@ -40,28 +40,31 @@ When executing `make`, it will automatically clone and compile the dependencies 
 To run the `fractol` application, execute the following command:
 
 ```bash
-./fractol [fractal_type] [additional_arguments]
+./fractol [fractal] [additional_arguments]
 ```
-- **mandelbrot**: Visualize the Mandelbrot set.
+You can choose one of the three fractals below:
+- `mandelbrot`: Visualize the Mandelbrot set. No additional arguments allowed.
 
-- **julia**: Explore the Julia set. Specify two additional arguments for the real and imaginary portions of the complex number. Right-click on the screen before zooming or using arrow keys to input these values directly.
+- `julia`: Explore the Julia set. You can specify two additional arguments for the real and imaginary portions of the complex number. If they are not provided, the program start with arbitrary standard values. **Left-click** before zooming or using arrow keys to select these values directly from the screen.
 
   ```bash
   ./fractol julia [real_part] [imaginary_part]
   ```
-- **bship**: Experience the Burning Ship fractal.
+- `bship`: Experience the Burning Ship fractal.
+
+### Color schemes
 
 All fractal sets support **right-click** at any time to change **color schemes**.
 
-Additional controls:
+### Additional controls
 
-- **z key**: Increase the number of iterations. Improves resolution and decreases speed.
+- `z` **key**: Increase the number of iterations. Improves resolution and decreases speed.
 
-- **x key**: Decrease the number of iterations. Improves speed and decreases resolution.
+- `x` **key**: Decrease the number of iterations. Improves speed and decreases resolution.
 
-- **= key**: Zoom in.
+- `=` **key**: Zoom in.
 
-- **- key**: Zoom out.
+- `-` **key**: Zoom out.
 
 - **Arrow keys**: Move around the fractal.
 
