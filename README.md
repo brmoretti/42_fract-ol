@@ -7,6 +7,8 @@
 
 The `fract-ol` project at 42 school is an exciting exploration into fractal rendering. In this project, students create a graphical application to visualize various types of fractals. The goal is to develop a program that allows users to interactively explore and zoom into intricate fractal patterns, providing both an aesthetic and educational experience.
 
+[![fractol](https://img.youtube.com/vi/WbDIdicwiAk/0.jpg)](https://www.youtube.com/watch?v=WbDIdicwiAk)
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
